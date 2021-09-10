@@ -10,6 +10,7 @@ public:
 	Image(int width, int height);
 
 	void writePixel(const glm::vec3& color);
+	void writePixel(const glm::vec3& color, int samplesPerPixel);
 	void writeImage(const std::string& fileName);
 
 private:
