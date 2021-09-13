@@ -23,7 +23,7 @@ HitRecord Sphere::hit(const Ray& ray, float tMin, float tMax) const
 	}
 	if (t <= tMax)
 	{
-		return HitRecord(ray, ray.at(t), glm::normalize(ray.at(t) - m_Center), t);
+		return HitRecord(ray, m_Radius > 0.0f ? ray.at(t) - m_Center : m_Center - ray.at(t), t, m_Material);
 	}
 	return HitRecord();
 }

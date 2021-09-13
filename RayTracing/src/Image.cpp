@@ -2,6 +2,7 @@
 #include "Image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image_write.h>
+#include <cmath>
 
 
 Image::Image(int width, int height) :
@@ -21,9 +22,12 @@ void Image::writePixel(const glm::vec3& color)
 void Image::writePixel(const glm::vec3& color, int samplesPerPixel)
 {
 	float scale = 1.0f / samplesPerPixel;
-	*m_ImgPos++ = static_cast<uint8_t>(std::clamp(static_cast<int>(256 * scale * color.x), 0, 255));
-	*m_ImgPos++ = static_cast<uint8_t>(std::clamp(static_cast<int>(256 * scale * color.y), 0, 255));
-	*m_ImgPos++ = static_cast<uint8_t>(std::clamp(static_cast<int>(256 * scale * color.z), 0, 255));
+	int r = 256 * std::sqrt(scale * color.r);
+	int g = 256 * std::sqrt(scale * color.g);
+	int b = 256 * std::sqrt(scale * color.b);
+	*m_ImgPos++ = static_cast<uint8_t>(std::clamp(r, 0, 255));
+	*m_ImgPos++ = static_cast<uint8_t>(std::clamp(g, 0, 255));
+	*m_ImgPos++ = static_cast<uint8_t>(std::clamp(b, 0, 255));
 }
 
 void Image::writeImage(const std::string& fileName)

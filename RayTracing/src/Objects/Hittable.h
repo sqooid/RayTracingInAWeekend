@@ -5,21 +5,28 @@
 #include <memory>
 #include "Ray.h"
 
+class Material;
+
 struct HitRecord
 {
 	HitRecord() :
-		collides(false), point(), normal(), t(), front()
+		collides(false), point(), normal(), t(), front(), material() {}
+
+	HitRecord(const Ray& ray, const glm::vec3& normal, float t, std::shared_ptr<Material> material) :
+		collides(true), point(ray.at(t)), normal(glm::normalize(normal)), t(t), material(material), front()
 	{
+		front = glm::dot(ray.direction, normal) < 0.0f;
+		if (!front)
+		{
+			this->normal = -normal;
+		}
 	}
-	HitRecord(const Ray& ray, glm::vec3 point, glm::vec3 normal, float t) :
-		collides(true), point(point), normal(normal), t(t), front()
-	{
-		front = glm::dot(ray.direction, normal) < 0;
-	}
+
 	bool collides;
 	glm::vec3 point;
 	glm::vec3 normal;
 	float t;
+	std::shared_ptr<Material> material;
 	bool front;
 };
 
