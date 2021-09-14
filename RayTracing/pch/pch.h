@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <cmath>
 #include <thread>
+#include <atomic>
+#include <chrono>
 
 #include <vector>
 #include <tuple>

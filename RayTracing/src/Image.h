@@ -11,6 +11,7 @@ public:
 
 	void writePixel(const glm::vec3& color);
 	void writePixel(const glm::vec3& color, int samplesPerPixel);
+	void writePixel(const glm::vec3& color, int samplesPerPixel, int pixelOffset);
 	void writeImage(const std::string& fileName);
 
 private:
